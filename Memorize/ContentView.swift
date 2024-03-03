@@ -12,25 +12,29 @@ struct ContentView: View {
         HStack() {
             CardView(isFaceUp: true)
             CardView(isFaceUp: false)
-            CardView(isFaceUp: true)
-        }
+            CardView()
+        }.foregroundColor(.black)
     }
 }
 
 struct CardView: View {
-    var isFaceUp: Bool
+    @State var isFaceUp: Bool = false
     var body: some View {
         ZStack {
+            let base = RoundedRectangle(cornerRadius: 12.0)
             if isFaceUp {
-                RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/).foregroundColor(.white)
-                RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/).strokeBorder(lineWidth: 2.0)
+                base.fill(.white)
+                    .strokeBorder(lineWidth: 2.0)
                 Text("🐼")
                     .font(.largeTitle)
             } else {
-                RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/).strokeBorder(lineWidth: 2.0).fill(.gray)
+                base.fill()
             }
         }
         .padding()
+        .onTapGesture {
+            isFaceUp.toggle()
+        }
     }
 }
 
